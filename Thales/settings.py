@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inspiration.apps.InspirationConfig',
-    'django_bootstrap5'
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -60,8 +60,7 @@ ROOT_URLCONF = 'Thales.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,3 +131,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CONTEXT_RENDER_MAP = {
+    "navbars": [
+        {
+            "name": "zhihu",
+            "show": "Zhihu",
+            "link": "https://www.zhihu.com/people/sword-15"
+        },
+        {
+            "name": "podcast",
+            "show": "Podcast",
+            "link": ""
+        },
+        {
+            "name": "github",
+            "show": "Github",
+            "link": "https://github.com/swordrada"
+        },
+    ]
+}

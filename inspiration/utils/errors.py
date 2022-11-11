@@ -1,0 +1,9 @@
+# const error no
+ERROR_NO_INTERNAL_ERROR = 500
+
+# const error msg
+ERROR_MSG_INTERNAL_ERROR = "Internal Error"
+
+ERROR_MAP = {
+    ERROR_NO_INTERNAL_ERROR: ERROR_MSG_INTERNAL_ERROR,
+}
