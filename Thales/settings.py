@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'inspiration.apps.InspirationConfig',
     'django_bootstrap5',
+    'jet',
+    'jet.dashboard',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +136,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CONTEXT_RENDER_MAP = {
     "navbars": [
+        {
+            "name": "home",
+            "show": "Home",
+            "link": "/"
+        },
         {
             "name": "zhihu",
             "show": "Zhihu",

@@ -23,6 +23,8 @@ def learn_more_controller(request):
     result = r.get(constant.VISIT_CALCULATOR_KEY)
 
     context = {
-        "calculate_result": result
+        "calculate_result": result,
+        "navbars": settings.CONTEXT_RENDER_MAP["navbars"]
     }
+
     return HttpResponse(tpl.render(context, request))
