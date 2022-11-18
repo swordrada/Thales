@@ -13,13 +13,13 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
     <link href="{% static "plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
-    <!-- Custom styles for this template -->
     <link href="{% static "plugins/bootstrap/css/cover.css" %}" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 </head>
 <body class="d-flex h-100 text-center text-bg-dark">
 
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    {% block headers %}
     <header class="mb-auto">
         <div>
             <h2 class="float-md-start mb-0">Floater</h2>
@@ -31,6 +31,7 @@
             </nav>
         </div>
     </header>
+    {% endblock headers %}
 
     {% block main %}
     <main class="px-3">
@@ -43,10 +44,12 @@
     </main>
     {% endblock main %}
 
+    {% block footer %}
     <footer class="mt-auto text-white-50">
-        <p>Inspiration of anything, Please look here <a href="https://getbootstrap.com/"
+        <p>To contact with me, Click here: <a href="{% url "main_frame:contact" %}"
                                                         class="text-white">Floater</a></p>
     </footer>
+    {% endblock footer %}
 </div>
 
 </body>

@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block main %}
+    <main class="px-3">
+        {% for blog in blog_list %}
+            <span>Title: </span><br>
+            <a href="/blog/get/{{ blog.id }}">{{ blog.title }}</a>
+            <div class="info">
+                <div>author: {{ blog.author }}</div>
+                <div>create_time: {{ blog.create_time }}</div>
+                <div>lastmodified_time: {{ blog.lastmodified_time }}</div>
+                <div>5分钟前</div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock main %}
