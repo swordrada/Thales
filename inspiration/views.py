@@ -6,6 +6,7 @@ from inspiration.common import constant
 from inspiration.utils.common import *
 from inspiration.plugins.plugin_redis import RedisClient
 from inspiration.logic.blog import *
+from inspiration.logic.message_board import *
 
 
 # Main index show & render
@@ -48,11 +49,11 @@ def search_blog_controller(request):
 
 
 def details_blog_controller(request, blog_id):
-    update_click_time(blog_id)
     tpl = loader.get_template('blog_details.html')
     context = {
         "blog": get_details(blog_id)
     }
+    update_click_time(blog_id)
     return HttpResponse(tpl.render(merge_context(build_context(), context), request))
 
 
@@ -60,8 +61,16 @@ def create_blog_controller(request):
     tpl = loader.get_template('blog.html')
     req = {
         "title": request.POST["title"],
-        "author": request.POST["author"],
         "content": request.POST["content"]
     }
     create(req)
     return HttpResponse(tpl.render(build_context(), request))
+
+
+# Message Board
+def get_messages_controller(request):
+    tpl = loader.get_template('message_board.html')
+    context = {
+        "messages": get_messages()
+    }
+    return HttpResponse(tpl.render(merge_context(build_context(), context), request))

@@ -24,15 +24,27 @@ class Users(models.Model):
         db_table = "users"
 
 
-class Comments(models.Model):
+class BlogComments(models.Model):
     id = models.BigAutoField(primary_key=True)
     blog_id = models.IntegerField()
     content = models.TextField()
-    user_id = models.IntegerField()
+    comment_username = models.CharField(max_length=512)
     create_time = models.DateTimeField(auto_now=True)
     lastmodified_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "comments"
+        db_table = "blog_comments"
 
 
+class MessageBoard(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    random_user = models.CharField(max_length=512)
+    title = models.CharField(max_length=512)
+    content = models.TextField()
+    reply = models.TextField()
+    reply_user_id = models.IntegerField()
+    create_time = models.DateTimeField(auto_now=True)
+    lastmodified_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "message_board"

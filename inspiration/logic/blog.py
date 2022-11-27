@@ -21,8 +21,11 @@ def get():
 
 
 def get_details(blog_id):
-    result = get_blog_query("AND t1.id={} LIMIT 1".format(blog_id))
-    return to_blog(Blogs.objects.raw(result))
+    query = get_blog_query("AND t1.id={} LIMIT 1".format(blog_id))
+    result = Blogs.objects.raw(query)
+    blog = result[0]
+    cmts = BlogComments.objects.filter(blog_id=blog.id)
+    return to_blog(result, cmts)
 
 
 def update_click_time(blog_id):
@@ -32,7 +35,7 @@ def update_click_time(blog_id):
     Blogs.objects.filter(id=blog_id).update(click_time=cnt)
 
 
-def to_blog(blog):
+def to_blog(blog, comments):
     blog = blog[0]
     blog_arrange = {
         "id": blog.id,
@@ -43,8 +46,14 @@ def to_blog(blog):
         "role": blog.role,
         "click_time": blog.click_time,
         "create_time": datetime.strftime(blog.create_time, "%Y-%m-%d %H:%M:%S"),
-        "lastmodified_time": datetime.strftime(blog.lastmodified_time, "%Y-%m-%d %H:%M:%S")
+        "lastmodified_time": datetime.strftime(blog.lastmodified_time, "%Y-%m-%d %H:%M:%S"),
+        "comments": []
     }
+    for comment in comments:
+        comment.create_time = datetime.strftime(comment.create_time, "%Y-%m-%d %H:%M:%S")
+        comment.lastmodified_time = datetime.strftime(comment.lastmodified_time, "%Y-%m-%d %H:%M:%S")
+        blog_arrange["comments"].append(comment)
+
     return blog_arrange
 
 
@@ -60,7 +69,7 @@ def to_blogs(blogs):
             "role": blog.role,
             "click_time": blog.click_time,
             "create_time": datetime.strftime(blog.create_time, "%Y-%m-%d"),
-            "lastmodified_time": datetime.strftime(blog.lastmodified_time, "%Y-%m-%d")
+            "lastmodified_time": datetime.strftime(blog.lastmodified_time, "%Y-%m-%d"),
         }
         out.append(blog_arrange)
     return out
@@ -68,21 +77,21 @@ def to_blogs(blogs):
 
 def get_blog_query(where=""):
     sql = """
-        SELECT 
-            t1.id,
-            t1.title,
-            t1.content,
-            t1.user_id,
-            t2.username,
-            t2.role,
-            t1.create_time,
-            t1.lastmodified_time,
-            t1.click_time
-        FROM 
-            blogs t1
-        INNER JOIN
-        users t2
-        ON t1.user_id = t2.id 
-        {}
-    """
+SELECT 
+    t1.id,
+    t1.title,
+    t1.content,
+    t1.user_id,
+    t2.username,
+    t2.role,
+    t1.create_time,
+    t1.lastmodified_time,
+    t1.click_time
+FROM 
+    blogs t1
+INNER JOIN
+users t2
+ON t1.user_id = t2.id
+{}
+"""
     return sql.format(where)

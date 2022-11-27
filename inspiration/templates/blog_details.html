@@ -16,6 +16,16 @@
                 <a href="/blog/search" class="btn btn-outline-success">Back</a>
             </div>
             <br>
+            <div>Comments</div>
+            <br>
+            {% if blog.comments|length == 0 %}
+                <h6 class="card-title">暂无评论</h6><br>
+            {% endif %}
+            {% for comment in blog.comments %}
+                <h6 class="card-title">{{ comment.comment_username }}</h6><br>
+                <h6 class="card-title">{{ comment.content }}</h6><br>
+                <h6 class="card-title">{{ comment.create_time }}</h6><br>
+            {% endfor %}
         </div>
     </main>
 {% endblock main %}

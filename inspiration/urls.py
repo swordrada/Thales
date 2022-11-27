@@ -8,5 +8,6 @@ urlpatterns = [
     path("contact", contact_controller, name="contact"),
     path("podcast", podcast_contact_controller, name="podcast_contact"),
     path("blog/search", search_blog_controller, name="search_blog"),
-    path("blog/get/<int:blog_id>", details_blog_controller, name="details_blog")
+    path("blog/get/<int:blog_id>", details_blog_controller, name="details_blog"),
+    path("message_board/search", get_messages_controller, name="search_message_board")
 ]

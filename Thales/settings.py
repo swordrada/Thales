@@ -164,5 +164,10 @@ CONTEXT_RENDER_MAP = {
             "show": "Github",
             "link": "https://github.com/swordrada"
         },
+        {
+            "name": "message board",
+            "show": "Message Board",
+            "link": "/message_board/search"
+        }
     ]
 }

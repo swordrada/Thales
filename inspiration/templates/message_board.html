@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block main %}
+    <div class="mb-3">
+        <div class="card-content" style="width: 30rem;">
+            <div class="card-body">
+            {% for message in messages %}
+                <h4 class="card-title">{{ message.title }}</h4><br>
+                <p class="card-text">{{ message.content }}</p>
+                <h6 class="card-subtitle mb-2 text-muted">{{ message.random_user }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Delivered at {{ message.create_time }}</h6>
+                {% if message.reply_content %}
+                    <p>{{ message.role }} {{ message.reply_username }} Reply: {{ message.reply }}</p>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        <label for="nickname" class="form-label">Anonymous Username</label>
+        <input type="text" class="form-control" id="nickname" placeholder="Please fill your nickname...">
+        <label for="messageTitle" class="form-label">Message Title</label>
+        <input type="text" class="form-control" id="messageTitle" placeholder="Please fill your title...">
+        <label for="messageTextArea" class="form-label">Message Content</label>
+        <textarea class="form-control" id="messageTextArea" rows=7 placeholder="Please fill messages..."></textarea>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Submit Message</button>
+        <button type="submit" class="btn btn-primary">Clean Message</button>
+    </div>
+{% endblock main %}
