@@ -48,6 +48,7 @@ def search_blog_controller(request):
 
 
 def details_blog_controller(request, blog_id):
+    update_click_time(blog_id)
     tpl = loader.get_template('blog_details.html')
     context = {
         "blog": get_details(blog_id)

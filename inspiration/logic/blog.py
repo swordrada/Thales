@@ -1,9 +1,10 @@
 from inspiration.models import *
 from django.db.models import F
+from datetime import datetime
 
 
 def create(req):
-    Blogs.objects.create(title=req["title"], content=req["content"], author=req["author"])
+    Blogs.objects.create(title=req["title"], content=req["content"])
 
 
 def update(req):
@@ -24,6 +25,13 @@ def get_details(blog_id):
     return to_blog(Blogs.objects.raw(result))
 
 
+def update_click_time(blog_id):
+    blog = Blogs.objects.filter(id=blog_id).first()
+    cnt = blog.click_time
+    cnt += 1
+    Blogs.objects.filter(id=blog_id).update(click_time=cnt)
+
+
 def to_blog(blog):
     blog = blog[0]
     blog_arrange = {
@@ -33,8 +41,9 @@ def to_blog(blog):
         "user_id": blog.user_id,
         "username": blog.username,
         "role": blog.role,
-        "create_time": blog.create_time,
-        "lastmodified_time": blog.lastmodified_time
+        "click_time": blog.click_time,
+        "create_time": datetime.strftime(blog.create_time, "%Y-%m-%d %H:%M:%S"),
+        "lastmodified_time": datetime.strftime(blog.lastmodified_time, "%Y-%m-%d %H:%M:%S")
     }
     return blog_arrange
 
@@ -49,8 +58,9 @@ def to_blogs(blogs):
             "user_id": blog.user_id,
             "username": blog.username,
             "role": blog.role,
-            "create_time": blog.create_time,
-            "lastmodified_time": blog.lastmodified_time
+            "click_time": blog.click_time,
+            "create_time": datetime.strftime(blog.create_time, "%Y-%m-%d"),
+            "lastmodified_time": datetime.strftime(blog.lastmodified_time, "%Y-%m-%d")
         }
         out.append(blog_arrange)
     return out
@@ -66,10 +76,11 @@ def get_blog_query(where=""):
             t2.username,
             t2.role,
             t1.create_time,
-            t1.lastmodified_time
+            t1.lastmodified_time,
+            t1.click_time
         FROM 
             blogs t1
-        LEFT JOIN
+        INNER JOIN
         users t2
         ON t1.user_id = t2.id 
         {}
