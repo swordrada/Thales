@@ -50,10 +50,10 @@ def search_blog_controller(request):
 
 def details_blog_controller(request, blog_id):
     tpl = loader.get_template('blog_details.html')
+    update_click_time(blog_id)
     context = {
         "blog": get_details(blog_id)
     }
-    update_click_time(blog_id)
     return HttpResponse(tpl.render(merge_context(build_context(), context), request))
 
 

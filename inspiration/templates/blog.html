@@ -2,20 +2,73 @@
 {% load static %}
 
 {% block main %}
-    <main class="px-3">
-        {% for blog in blog_list %}
-            <div class="card-content" style="width: 30rem;">
-                {% if blog.image %}
-                    <img src="{{ blog.image }}" class="card-img-top" alt="image">
-                {% endif %}
-                <div class="card-body">
-                    <h4 class="card-title">{{ blog.title }}</h4><br>
-                    <p class="card-text">{{ blog.content }}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ blog.username }} / {{ blog.create_time }} / {{ blog.click_time }}</h6>
-                    <a href="/blog/get/{{ blog.id }}" class="btn btn-outline-success">View Blog</a>
-                </div>
-                <br>
+    <div class="container">
+        <div class="row">
+            <div class="mb-5">
+                <img src="{% static "middle_img.png" %}" alt="Bootstrap" width="550" height="350">
             </div>
-        {% endfor %}
-    </main>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="d-flex flex-column flex-shrink-0 p-2 text-white bg-dark" style="width: 9rem;">
+                    <div class="fs-3 mb-3 text-start">
+                        <img src="{% static "svg/bookmark-dash.svg" %}" alt="Bootstrap" width=25" height="25">
+                        <a href="/" class="text-white text-decoration-none">
+                            <span class="fs-5">Category</span>
+                        </a>
+                    </div>
+                    <hr>
+                    <ul class="nav flex-column mb-auto text-start">
+                        <li class="nav-item fw-normal">
+                            <a href="#" class="nav-link active fw-light text-white" aria-current="page">Home</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link fw-light text-white">DirtyTalks</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link fw-light text-white">Podcasts</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link fw-light text-white">Thinkings</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link fw-light text-white">DayDreaming</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-7">
+                {% for blog in blog_list %}
+                    <div class="card-content" style="width: 25rem;">
+                        {% if blog.image %}
+                            <img src="{{ blog.image }}" class="card-img-top" alt="image">
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="fs-3 mb-3 text-start">
+                                <img src="{% static "svg/book.svg" %}" alt="Bootstrap" width="30" height="30">
+                                <span class="fw-normal">{{ blog.title }}</span>
+                            </div>
+                            <div class="fs-5 mb-3 text-start">
+                                <span class="fw-light">{{ blog.content }}</span>
+                            </div>
+                            <div class="fs-7 mb-3 text-start">
+                                <img src="{% static "svg/pen.svg" %}" alt="Bootstrap" width="20" height="20">
+                                <span class="fw-light">{{ blog.username }}</span>
+                                <img src="{% static "svg/clock.svg" %}" alt="Bootstrap" width="20" height="20">
+                                <span class="fw-light">{{ blog.create_time }}</span>
+                                <img src="{% static "svg/mouse2.svg" %}" alt="Bootstrap" width="20" height="20">
+                                <span class="fw-light">{{ blog.click_time }}</span>
+                            </div>
+                            <div class="fs-7 mb-3 text-start">
+                                <a href="/blog/get/{{ blog.id }}" class="btn btn-outline-success">View Blog</a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock main %}

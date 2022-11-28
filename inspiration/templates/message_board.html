@@ -3,28 +3,68 @@
 
 {% block main %}
     <div class="mb-3">
-        <div class="card-content" style="width: 30rem;">
-            <div class="card-body">
-            {% for message in messages %}
-                <h4 class="card-title">{{ message.title }}</h4><br>
-                <p class="card-text">{{ message.content }}</p>
-                <h6 class="card-subtitle mb-2 text-muted">{{ message.random_user }}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">Delivered at {{ message.create_time }}</h6>
-                {% if message.reply_content %}
-                    <p>{{ message.role }} {{ message.reply_username }} Reply: {{ message.reply }}</p>
-                {% endif %}
-            {% endfor %}
+        {% for message in messages %}
+            <div class="row text-start mb-5">
+                <div class="col-md-4 mb-3">
+                    <div class="mb-2">
+                        <img src="{% static "svg/person.svg" %}" alt="image" width=25" height="25">
+                        <span class="fw-light">{{ message.random_user }}</span>
+                    </div>
+                    <div class="mb-2">
+                        <img src="{% static "svg/clock.svg" %}" alt="image" width=25" height="25">
+                        <span class="fw-light">{{ message.create_time }}</span>
+                    </div>
+                </div>
+                <div class="col-md-8 mb-3">
+                    <div class="fs-4 mb-1">
+                        <span class="fw-bolder">{{ message.title }}</span>
+                    </div>
+                    <div class="fs-6 mb-1">
+                        <span class="fw-light">{{ message.content }}</span>
+                    </div>
+                    <div class="fs-6 text-success mb-1">
+                        {% if message.reply %}
+                            <span class="fw-normal">【{{ message.reply_user_role }}】 {{ message.reply_username }} Replied: {{ message.reply }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
+        <div class="fs-3 mb-4">
+            <img src="{% static "svg/airplane-engines.svg" %}" alt="image" width=50" height="50">
+            <span class="fw-light">Write down your messages!</span>
+        </div>
+        <div class="row mb-4">
+            <label for="nickname" class="col-sm-2 col-form-label text-start">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nickname" placeholder="Please fill your nickname..."
+                       required>
             </div>
         </div>
-        <label for="nickname" class="form-label">Anonymous Username</label>
-        <input type="text" class="form-control" id="nickname" placeholder="Please fill your nickname...">
-        <label for="messageTitle" class="form-label">Message Title</label>
-        <input type="text" class="form-control" id="messageTitle" placeholder="Please fill your title...">
-        <label for="messageTextArea" class="form-label">Message Content</label>
-        <textarea class="form-control" id="messageTextArea" rows=7 placeholder="Please fill messages..."></textarea>
+        <div class="row mb-4">
+            <label for="messageTitle" class="col-sm-2 col-form-label text-start">Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="messageTitle" placeholder="Please fill your title..."
+                       required>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="messageTextArea" class="col-sm-2 col-form-label text-start">Messages</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="messageTextArea" rows=7 placeholder="Please fill messages..."
+                          required></textarea>
+            </div>
+        </div>
     </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit Message</button>
-        <button type="submit" class="btn btn-primary">Clean Message</button>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-auto m-1">
+            <button type="submit" class="btn btn-primary">Submit Message</button>
+        </div>
+        <div class="col-md-auto m-1">
+            <button type="submit" class="btn btn-primary">Clean Message</button>
+        </div>
+        <div class="col-md-3"></div>
     </div>
 {% endblock main %}

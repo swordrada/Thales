@@ -48,3 +48,9 @@
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+
+.author {
+    display: flex;
+    padding: 1rem;
+    margin: 1rem;
+}
